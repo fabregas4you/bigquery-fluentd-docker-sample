@@ -4,12 +4,12 @@
 # This image will run nginx, fluentd and bigquery plugin to send access log to BigQuery.
 #
 
-FROM ubuntu:12.04
-MAINTAINER kazsato@google.com
+FROM ubuntu:16.04
+MAINTAINER coffee.err@gmail.com
 
 # environment
 ENV DEBIAN_FRONTEND noninteractive
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu Xenial main universe" > /etc/apt/sources.list
 
 # update, curl, sudo
 RUN apt-get update && apt-get -y upgrade
@@ -18,9 +18,9 @@ RUN apt-get -y install sudo
 
 # fluentd
 RUN curl -O http://packages.treasure-data.com/debian/RPM-GPG-KEY-td-agent && apt-key add RPM-GPG-KEY-td-agent && rm RPM-GPG-KEY-td-agent
-RUN curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise-td-agent2.sh | sh 
+RUN curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-xenial-td-agent3.sh | sh
 ADD td-agent.conf /etc/td-agent/td-agent.conf
-RUN curl -L https://raw.githubusercontent.com/fluent/fluentd/master/COPYING > /fluentd-license.txt
+RUN curl -L https://raw.githubusercontent.com/fluent/fluentd/master/LICENSE > /fluentd-license.txt
 
 # nginx
 RUN apt-get install -y nginx
